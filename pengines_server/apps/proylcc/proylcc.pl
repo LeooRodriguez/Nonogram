@@ -89,5 +89,5 @@ cumplePista([X|Xs],N,Res):- X == "#", Z is N-1, cumplePista(Xs,Z,Res).
 % Lista es la lista qie deseamos recorrer 
 % ListaRes es la lista que tiene el indice = Index, por lo tanto es la qie debo recorrer 
 
-recorrer([X|Xs],0,X).
-recorrer([X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
+recorrer([X|_Xs],0,X).
+recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
