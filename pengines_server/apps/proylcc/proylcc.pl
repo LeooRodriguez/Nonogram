@@ -77,7 +77,7 @@ cumple([X|Xs],[]):- (X == "X"; var(X)) ,cumple(Xs,[]).
 cumple([X|Xs],Pistas):- (X == "X"; var(X)) ,cumple(Xs,Pistas).
 cumple([X|Xs],[Y|Ys]):- X == "#", Z is Y-1, cumplePista(Xs,Z,Res), cumple(Res,Ys).
 
-% cumplePista(+[X|Xs],+N+Res).
+% cumplePista(+[X|Xs],+N,+Res).
 	% [X|Xs] es la lista ya sea de la fila o columuna en donde queremos verificar la propiedad
 	% N es el indice de la lista de pistas en donde queremos recorrer
 
@@ -86,8 +86,10 @@ cumplePista([X|Xs],0,Xs):- X == "X"; var(X).
 cumplePista([X|Xs],N,Res):- X == "#", Z is N-1, cumplePista(Xs,Z,Res).
 
 % recorrer(+Lista, +Index, +ListaRes).
-% Lista es la lista qie deseamos recorrer 
-% ListaRes es la lista que tiene el indice = Index, por lo tanto es la qie debo recorrer 
+% Lista es la lista que deseamos recorrer 
+% ListaRes es la lista que tiene el indice = Index, por lo tanto es la que debo recorrer 
 
 recorrer([X|_Xs],0,X).
 recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
+
+
