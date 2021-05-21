@@ -23,8 +23,8 @@ class Board extends React.Component {
         const { satisfaccionFil, satisfaccionCol } = this.props;
         const rowClues = this.props.rowClues;
         const colClues = this.props.colClues;
-        const clueHigh = Math.max(this. alturaPistas(rowClues) * 15, 60);//Actualiza el valor a setear en la parte grafica para que que la fila se actualice en tamaño dinamicamente.
-        const colclueHigh = Math.max(this. alturaPistas(colClues) * 25, 60);//Actualiza el valor a setear en la parte grafica para que que la columna se actualice en tamaño dinamicamente.
+        const clueHigh = Math.max(this.alturaPistas(rowClues)* 15, 60);//Actualiza el valor a setear en la parte grafica para que que la fila se actualice en tamaño dinamicamente.
+        const colclueHigh = Math.max(this.alturaPistas(colClues)* 25, 60);//Actualiza el valor a setear en la parte grafica para que que la columna se actualice en tamaño dinamicamente.
 
 
 
