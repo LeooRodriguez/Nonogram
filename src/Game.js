@@ -95,6 +95,10 @@ class Game extends React.Component {
       this.setState({ modoBoton: "#" })
   }
 
+  resolver(){
+
+  }
+
   abrirManual() {
     window.open("https://es.puzzle-nonograms.com/faq.php", "Manual de usuario / Tutorial", "width=800, height=700")
   }
@@ -137,21 +141,24 @@ class Game extends React.Component {
           satisfaccionFil={this.state.satisfaccionFil}
           satisfaccionCol={this.state.satisfaccionCol}
         />
-
+        <div>
         <button className="box clue nsat" onClick={() => this.cambiar()} >
           {this.state.modoBoton}
         </button>
-        <div>
           <div className={"cartelNombre"}>Nonograma
         </div>
-          <div>
             <div className={"Estado"}>Modo:
-        </div>
-          </div>
         </div>
         <button className={"botonReglas"} onClick={() => this.abrirManual()}>
           Reglas
         </button>
+        <button className={"botonDeReinicio"} onClick={() => this.restart()}>
+          Reiniciar
+        </button>
+        <button className={"botonDeResolver"} onClick={() => this.resolver()}>
+          Resolver
+        </button>
+      </div>
       </div>
 
     );

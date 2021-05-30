@@ -74,12 +74,11 @@ body {
   position: relative;
   height: 50px;
   width: 50px;
-  left : 170px;
-  top : 151px;
+  left : 110px;
+  top : 161px;
   font-size: 300%;
   font-family: "Segoe UI Light";
   font-weight: 1000;
-  transform: translate(-50%,-50%);
 
   border: solid rgb(12, 239, 247) 1px;
 }
@@ -111,12 +110,11 @@ body {
   height: 50px;
   width: 50px;
   left : 30px;
-  top : 113px;
+  top : 60px;
   color : rgb(7, 209, 255);
   font-size: 200%;
   font-family: "Segoe UI Light";
   font-weight: 700;
-  transform: translate(-50%,-50%);
   
 }
 .cartelNombre{
@@ -153,8 +151,8 @@ body {
   position:relative;
   height: 50px;
   width: 100px;
-  right: 350px;
-  top : 130px;
+  left: 170px;
+  top : 6px;
   font-weight: 1000;
   border-radius: 8px;
 }
@@ -172,3 +170,28 @@ body {
   border-radius: 8px;
 }
 
+.botonDeReinicio{
+  border: solid rgb(8, 222, 250) 1px;
+  background: linear-gradient(45deg, #5f49bf 30%, #063ffa 90%);
+  color: rgb(255, 255, 255);
+  position:relative;
+  height: 50px;
+  width: 157px;
+  left: 14px;
+  top: 60px;
+  font-weight: 1000;
+  border-radius: 8px;
+}
+
+.botonDeResolver{
+  border: solid rgb(8, 222, 250) 1px;
+  background: linear-gradient(45deg, #5f49bf 30%, #063ffa 90%);
+  color: rgb(255, 255, 255);
+  position:relative;
+  height: 50px;
+  width: 157px;
+  right: 143px;
+  bottom: 48px;
+  font-weight: 1000;
+  border-radius: 8px;
+}
