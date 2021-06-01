@@ -99,6 +99,10 @@ class Game extends React.Component {
 
   }
 
+  ayuda(){
+    
+  }
+
   abrirManual() {
     window.open("https://es.puzzle-nonograms.com/faq.php", "Manual de usuario / Tutorial", "width=800, height=700")
   }
@@ -120,13 +124,13 @@ class Game extends React.Component {
       return <div>
         <div className={"cartelGanaste"}>¡FELICIDADES,HAS GANADO!</div>
 
-        <button className={"botonDeReset"} onClick={() => this.restart()}>
+        <botonesGenerales className={"botonDeReset"} onClick={() => this.restart()}>
           Pulse para comenzar otra partida
-        </button>
+        </botonesGenerales>
 
-        <button className={"botonDeGit"} onClick={() => this.irGithub()}>
-          GitHub
-        </button>
+        <botonesGenerales className={"botonDeGit"} onClick={() => this.irGithub()}>
+          Código del nonograma (GitHub)
+        </botonesGenerales>
       </div>
     }
 
@@ -149,15 +153,18 @@ class Game extends React.Component {
         </div>
             <div className={"Estado"}>Modo:
         </div>
-        <button className={"botonReglas"} onClick={() => this.abrirManual()}>
+        <botonesGenerales className={"botonReglas"} onClick={() => this.abrirManual()}>
           Reglas
-        </button>
-        <button className={"botonDeReinicio"} onClick={() => this.restart()}>
+        </botonesGenerales>
+        <botonesGenerales className={"botonDeReinicio"} onClick={() => this.restart()}>
           Reiniciar
-        </button>
-        <button className={"botonDeResolver"} onClick={() => this.resolver()}>
+        </botonesGenerales>
+        <botonesGenerales className={"botonDeResolver"} onClick={() => this.resolver()}>
           Resolver
-        </button>
+        </botonesGenerales>
+        <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
+          Ayudita 
+        </botonesGenerales>
       </div>
       </div>
 
@@ -183,6 +190,21 @@ class Game extends React.Component {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

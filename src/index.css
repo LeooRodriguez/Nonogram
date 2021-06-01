@@ -1,3 +1,32 @@
+
+
+botonesGenerales{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.4s;
+}
+
+botonesGenerales:after {
+  content: '»';
+  position: relative;
+  opacity: 0;  
+  top: 14px;
+  right: -2px;
+  transition: 0.5s;
+}
+
+botonesGenerales:hover{
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+botonesGenerales:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+
+
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin-left: 36%;
@@ -74,8 +103,8 @@ body {
   position: relative;
   height: 50px;
   width: 50px;
-  left : 110px;
-  top : 161px;
+  left : 275px;
+  top : 55px;
   font-size: 300%;
   font-family: "Segoe UI Light";
   font-weight: 1000;
@@ -109,9 +138,9 @@ body {
   position:relative;
   height: 50px;
   width: 50px;
-  left : 30px;
-  top : 60px;
-  color : rgb(7, 209, 255);
+  left : 200px;
+  bottom: 40px;
+  color : rgb(7, 255, 119);
   font-size: 200%;
   font-family: "Segoe UI Light";
   font-weight: 700;
@@ -141,6 +170,7 @@ body {
   top : 50%;
   transform: translate(-50%,-50%);
   font-weight: 1000;
+  font-size: 30px;
   border-radius: 8px;
 }
 
@@ -150,10 +180,11 @@ body {
   color: rgb(255, 255, 255);
   position:relative;
   height: 50px;
-  width: 100px;
-  left: 170px;
+  width: 157px;
+  left: 172px;
   top : 6px;
   font-weight: 1000;
+  font-size: 25px;
   border-radius: 8px;
 }
 .botonDeGit{
@@ -167,6 +198,7 @@ body {
   top : 65%;
   transform: translate(-50%,-50%);
   font-weight: 1000;
+  font-size: 30px;
   border-radius: 8px;
 }
 
@@ -180,6 +212,7 @@ body {
   left: 14px;
   top: 60px;
   font-weight: 1000;
+  font-size: 25px;
   border-radius: 8px;
 }
 
@@ -190,8 +223,22 @@ body {
   position:relative;
   height: 50px;
   width: 157px;
-  right: 143px;
+  right: 145px;
   bottom: 48px;
   font-weight: 1000;
+  font-size: 25px;
+  border-radius: 8px;
+}
+.botonAyudita{
+  border: solid rgb(8, 222, 250) 1px;
+  background: linear-gradient(45deg, #5f49bf 30%, #063ffa 90%);
+  color: rgb(255, 255, 255);
+  position:relative;
+  height: 50px;
+  width: 157px;
+  right: 303px;
+  top: 114px;
+  font-weight: 1000;
+  font-size: 25px;
   border-radius: 8px;
 }
