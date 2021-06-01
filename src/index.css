@@ -103,8 +103,8 @@ body {
   position: relative;
   height: 50px;
   width: 50px;
-  left : 275px;
-  top : 55px;
+  left : 250px;
+  top : 215px;
   font-size: 300%;
   font-family: "Segoe UI Light";
   font-weight: 1000;
@@ -138,9 +138,9 @@ body {
   position:relative;
   height: 50px;
   width: 50px;
-  left : 200px;
-  bottom: 40px;
-  color : rgb(7, 255, 119);
+  left : 90px;
+  bottom: 80px;
+  color : rgba(247, 247, 247, 0.925);
   font-size: 200%;
   font-family: "Segoe UI Light";
   font-weight: 700;
@@ -181,8 +181,8 @@ body {
   position:relative;
   height: 50px;
   width: 157px;
-  left: 172px;
-  top : 6px;
+  left: 91px;
+  top : 31px;
   font-weight: 1000;
   font-size: 25px;
   border-radius: 8px;
@@ -209,8 +209,8 @@ body {
   position:relative;
   height: 50px;
   width: 157px;
-  left: 14px;
-  top: 60px;
+  right: 67px;
+  top: 90px;
   font-weight: 1000;
   font-size: 25px;
   border-radius: 8px;
@@ -223,8 +223,8 @@ body {
   position:relative;
   height: 50px;
   width: 157px;
-  right: 145px;
-  bottom: 48px;
+  right: 10px;
+  top: 30px;
   font-weight: 1000;
   font-size: 25px;
   border-radius: 8px;
@@ -236,9 +236,13 @@ body {
   position:relative;
   height: 50px;
   width: 157px;
-  right: 303px;
-  top: 114px;
+  right: 190px;
+  top: 248px;
   font-weight: 1000;
   font-size: 25px;
   border-radius: 8px;
 }
+
+
+
+

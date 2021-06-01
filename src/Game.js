@@ -151,7 +151,7 @@ class Game extends React.Component {
         </button>
           <div className={"cartelNombre"}>Nonograma
         </div>
-            <div className={"Estado"}>Modo:
+            <div className={"Estado"}>
         </div>
         <botonesGenerales className={"botonReglas"} onClick={() => this.abrirManual()}>
           Reglas
@@ -162,10 +162,13 @@ class Game extends React.Component {
         <botonesGenerales className={"botonDeResolver"} onClick={() => this.resolver()}>
           Resolver
         </botonesGenerales>
-        <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
+        
+      </div>
+      <div>
+      <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
           Ayudita 
         </botonesGenerales>
-      </div>
+        </div>
       </div>
 
     );
