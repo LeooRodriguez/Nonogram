@@ -32,7 +32,6 @@ replace(X, XIndex, Y, [Xi|Xs], [Xi|XsY]):-
 	% NewRow es el resultado de reemplazar lo que se que haya (_Cell) en la posición ColN de Row por Conenido.
 
 % put(+Contenido, +Pos, +PistasFilas, +PistasColumnas, +Grilla, -GrillaRes, -FilaSat, -ColSat).
-	% Contenido es el
 	% Pos es la posicion de la celda seleccionada
 	% PistasFilas es la lista de pistas de las filas 
 	% PistasColumnas es la lista de pistas de las columnas
