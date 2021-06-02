@@ -94,8 +94,8 @@ cumplePista([X|Xs],0,Xs):- X == "X"; var(X).
 cumplePista([X|Xs],N,Res):- X == "#", Z is N-1, cumplePista(Xs,Z,Res).
 
 % recorrer(+Lista, +Index, +ListaRes).
-% Lista es la lista que deseamos recorrer 
-% ListaRes es la lista que tiene el indice = Index, por lo tanto es la que debo recorrer 
+	% Lista es la lista que deseamos recorrer 
+	% ListaRes es la lista que tiene el indice = Index, por lo tanto es la que debo recorrer 
 
 recorrer([X|_Xs],0,X).
 recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
