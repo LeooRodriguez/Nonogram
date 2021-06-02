@@ -29,7 +29,16 @@ replace(X, XIndex, Y, [Xi|Xs], [Xi|XsY]):-
 	% NewRow es el resultado de reemplazar la celda Cell en la posición ColN de Row por _,
 	% siempre y cuando Cell coincida con Contenido (Cell se instancia en la llamada al replace/5).
 	% En caso contrario (;)
-	% NewRow es el resultado de reemplazar lo que se que haya (_Cell) en la posición ColN de Row por Conenido.	 
+	% NewRow es el resultado de reemplazar lo que se que haya (_Cell) en la posición ColN de Row por Conenido.
+
+% put(+Contenido, +Pos, +PistasFilas, +PistasColumnas, +Grilla, -GrillaRes, -FilaSat, -ColSat).
+	% Contenido es el
+	% Pos es la posicion de la celda seleccionada
+	% PistasFilas es la lista de pistas de las filas 
+	% PistasColumnas es la lista de pistas de las columnas
+	% GrillaRes es la grilla resultante con los nuevis cambios
+	% FilaSat = 0 si la fila cumple la propiedad, caso contrario FilaSat = 1
+	% ColSat = 0 si la columna cumple la propiedad, caso contrario ColSat = 1	 
 	
 put(Contenido, [RowN, ColN], PistasFilas, PistasColumnas, Grilla, NewGrilla,FilaSat,ColSat):-
 	replace(Row, RowN, NewRow, Grilla, NewGrilla),
@@ -91,5 +100,3 @@ cumplePista([X|Xs],N,Res):- X == "#", Z is N-1, cumplePista(Xs,Z,Res).
 
 recorrer([X|_Xs],0,X).
 recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
-
-
