@@ -26,7 +26,14 @@ class Game extends React.Component {
         });
       }
     });
+    iniciarGrillaRes();
   }
+
+iniciarGrillaRes(){
+  
+}
+
+
 
   handleClick(i, j) {
     // No action on click if we are waiting.

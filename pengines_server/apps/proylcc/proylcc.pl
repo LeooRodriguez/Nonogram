@@ -99,3 +99,39 @@ cumplePista([X|Xs],N,Res):- X == "#", Z is N-1, cumplePista(Xs,Z,Res).
 
 recorrer([X|_Xs],0,X).
 recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
+
+
+% generarLista(+ListaPistas,-ListaResultado).
+	% Genera una lista en base a la lista de pistas.
+generarLista([0], []).
+generarLista([], Res):-llenarconX(Res).
+generarLista([X|Xs], Res):-X == 0, generarLista(Xs, Res). 
+generarLista([X|Xs], [Y|Ys]):-Y = "#",
+   cumplePista2([Y|Ys], X, Rta),
+   Resto = Rta,
+   primerHashtag(Resto, LR),
+   ListaRestoH = LR,
+   generarLista(Xs, ListaRestoH).
+generarLista([X|Xs], [Y|Ys]):-Y = "X",
+    primerHashtag([Y|Ys], R),
+    ListaEnHashtag = R,
+    generarLista([X|Xs], ListaEnHashtag).
+
+
+% llenarconX(+Lista).
+	% Completa la lista de entrada con X. 
+llenarconX([]).
+llenarconX([X|Xs]):- X = "X",llenarconX(Xs).
+
+
+% primerHashtag(+Lista,-ListaRes).
+	% Devuelve el resto de la Lista en ListaRes cuando encuentra un #. 
+primerHashtag([], []).
+primerHashtag([X|Xs], [X|Xs]):-X = "#".
+primerHashtag([X|Xs], Res):-X = "X",primerHashtag(Xs, Res).
+
+
+% cumplePista2(+Lista,+CantPistas,-ListaRes). 
+cumplePista2([],0,[]).
+cumplePista2([X|Xs],0,[X|Xs]):- X = "X"; var(X).
+cumplePista2([X|Xs],N,Res):- X = "#", Z is N-1, cumplePista2(Xs,Z,Res).
