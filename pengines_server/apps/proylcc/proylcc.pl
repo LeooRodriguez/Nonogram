@@ -133,5 +133,6 @@ primerHashtag([X|Xs], Res):-X = "X",primerHashtag(Xs, Res).
 
 % cumplePista2(+Lista,+CantPistas,-ListaRes). 
 cumplePista2([],0,[]).
-cumplePista2([X|Xs],0,[X|Xs]):- X = "X"; var(X).
+cumplePista2([X|Xs],0,Xs):- X = "X".
 cumplePista2([X|Xs],N,Res):- X = "#", Z is N-1, cumplePista2(Xs,Z,Res).
+
