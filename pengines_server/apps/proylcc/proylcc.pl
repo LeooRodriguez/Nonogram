@@ -136,3 +136,155 @@ cumplePista2([],0,[]).
 cumplePista2([X|Xs],0,Xs):- X = "X".
 cumplePista2([X|Xs],N,Res):- X = "#", Z is N-1, cumplePista2(Xs,Z,Res).
 
+
+%llenar una lista con N elementos desde el Tamanio de la linea.
+llenarLinea([],_X,0).
+llenarLinea([X|Xs],X,Max):-
+    Max > 0,
+    Y is Max - 1,
+    llenarLinea(Xs,X,Y).
+
+% ayuda a transformarPistas
+thAux([],[]).
+thAux([Hint|Hints] , [[Hint,"#"]|SubList]):-
+    thAux(Hints,SubList).
+
+% intercala un elemento entre los elementos de una lista dada
+intercalar([],_X,[]).
+intercalar([Elem|[]], _X , [Elem]).
+% no es el ultimo elemento
+intercalar([Elem | [Y|Ys]], X , [Elem, X| Xs]):-
+    intercalar( [Y|Ys] , X , Xs).
+
+% crea un "sub modelo" de solucion donde dice cosas mas consisas para una solucion
+
+
+transformarPistas(Pistas, [[0,"X"]|Xs]):-
+    thAux(Pistas,Y),
+	intercalar(Y,[1,"X"],Z),
+	append(Z, [[0,"X"]] , Xs).
+
+
+
+
+
+% transforma el submodelo en una posible solución (acotando con la longitud de la linea)
+convertirSubModelo([],[],_Max).
+convertirSubModelo( [[X,"#"]|Xs] , ListaRes, Max):-
+    llenarLinea(Lista,"#",X),
+    convertirSubModelo(Xs,ListaResAux,Max),
+    append(Lista,ListaResAux,ListaRes).
+
+convertirSubModelo( [[X,"X"]|Xs] , ListaRes, Max):-
+    llenarLinea(Prefix, "X" , X),
+    llenarLinea(Sufixes, "X" , Max),
+    !,
+    append(SubSufix,_L,Sufixes),
+    append(Prefix,SubSufix,Lista),
+    convertirSubModelo(Xs,ListaResAux,Max),
+    append(Lista,ListaResAux,ListaRes).
+
+
+
+
+
+
+
+% crea el submodelo y lo convierte (y limita el lenght)
+generarLista(Pistas, Tamanio, ListaRes):-
+    transformarPistas(Pistas, SubModel),
+    convertirSubModelo(SubModel,ListaRes,Tamanio),
+    length(ListaRes,Tamanio).
+
+
+verificarPosibleSol([],[]).
+verificarPosibleSol([_X|Xs], [Y|Ys]):-
+    var(Y),
+	verificarPosibleSol(Xs,Ys).
+
+verificarPosibleSol([X|Xs], [Y|Ys]):-
+    not(var(Y)),
+    X == Y,
+    verificarPosibleSol(Xs,Ys).
+
+
+lineasSol(Linea, Tamanio, Pistas, SolPos):-
+    generarLista(Pistas, Tamanio, SolPos),
+    verificarPosibleSol(SolPos, Linea).
+
+
+
+
+
+
+posibleSolIndice(Linea, Indice, Pista, S):-
+    findall( Sol, lineasSol(Linea,Indice,Pista,Sol) , MPosSol),
+    transpose(MPosSol, S).
+
+
+
+
+
+
+mejorarPosibleSolAux(Elem,X,Xs):-
+     var(Elem),
+     list_to_set([X|Xs], [X]).
+
+
+
+
+
+mejorarPosibleSol( Elem, [X|Xs] , Elem):-
+    not(mejorarPosibleSolAux(Elem,X,Xs)).
+mejorarPosibleSol( Elem, [X|Xs] , X):-
+    mejorarPosibleSolAux(Elem,X,Xs).
+
+
+
+
+
+
+acomodarLineaSol( [],[],[]).
+acomodarLineaSol( [X|Xs], [Y|Ys], [Z|Zs]):-
+    mejorarPosibleSol(X,Y,Z),
+    acomodarLineaSol( Xs, Ys, Zs).
+
+
+lineaEstadoAuxiliar(Lista,Indice,Pistas,ListaRes):-
+    posibleSolIndice(Lista, Indice, Pistas, PosiblesSol),
+	acomodarLineaSol(Lista, PosiblesSol, ListaRes).
+
+
+
+
+grillaEstadoAuxiliar([],_Indice,_Xs,[]).
+grillaEstadoAuxiliar([Y|Ys] , Indice , [X|Xs] , [Z|Zs]):-
+	lineaEstadoAuxiliar(Y,Indice,X,Z),
+    grillaEstadoAuxiliar(Ys , Indice , Xs , Zs).
+
+
+resolverNonogramaAux(Grilla, [CantF, CantC] , PistasF, PistasC, NuevaGrilla):-
+    grillaEstadoAuxiliar(Grilla, CantF, PistasF, Grilla1Pasada),
+    transpose(Grilla1Pasada,Grilla1PasadaT),
+    grillaEstadoAuxiliar(Grilla1PasadaT, CantC, PistasC, Grilla1PasadaOriginal),
+    transpose(Grilla1PasadaOriginal,NuevaGrilla).
+
+
+
+% Para resumir Sofi meto todo en una lista, es decir la "aplano" ej= [[[2]2]2]=[2,2,2] y verifico que todo sea X o #
+estaResuelta(Grilla):-
+    flatten(Grilla,AVerificar),
+    not((
+    	member(X,AVerificar),
+    	var(X)
+    )).
+
+
+resolverNonograma(Grilla, [_CantFil, _CantCol] , _HintsRows, _HintsColumns, Grilla):-
+	estaResuelta(Grilla).
+
+resolverNonograma(Grilla, [CantFil, CantCol] , PistasF, PistasC, GrillaResuelta):-
+    not(estaResuelta(Grilla)),
+    resolverNonogramaAux(Grilla, [CantFil, CantCol] , PistasF, PistasC, GrillaAux),
+    resolverNonograma(GrillaAux, [CantFil, CantCol] , PistasF, PistasC, GrillaResuelta).
+

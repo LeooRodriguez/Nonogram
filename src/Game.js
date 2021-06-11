@@ -26,13 +26,8 @@ class Game extends React.Component {
         });
       }
     });
-    iniciarGrillaRes();
+    
   }
-
-iniciarGrillaRes(){
-  
-}
-
 
 
   handleClick(i, j) {
