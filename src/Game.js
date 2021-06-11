@@ -24,11 +24,42 @@ class Game extends React.Component {
           satisfaccionFil: Array(response['PistasFilas'].length).fill(false), //inicializamos la fila para verificar en falso
           satisfaccionCol: Array(response['PistasColumns'].length).fill(false) //inicializamos la columna para verificar en falso
         });
+        this.cargarGrillaRes();
       }
+      
+      //this.mostrarSol();
     });
     
   }
 
+  cargarGrillaRes(){
+    
+    const PF= this.state.rowClues.length;
+    const PC= this.state.colClues.length;
+    const rowClue = JSON.stringify(this.state.rowClues);
+    const colClue = JSON.stringify(this.state.colClues);
+    const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_");
+    const queryX = 'resolverNonograma("' + squaresS + '", [' + PF + ',' + PC + ']' + ', ' + rowClue + ', ' + colClue +', GrillaSo)';
+    this.pengine.query(queryX, (success, response) => {
+      if (success) {
+        let GrillaSol = response['GrillaSo'];
+        console.log(JSON.stringify(response['GrillaSo']));
+        this.setState({
+          gridSol: GrillaSol
+        });
+        console.log(JSON.stringify("GrillaComun: " +squaresS));
+        console.log(JSON.stringify("PistasF " +rowClue));
+        console.log(JSON.stringify("PistasC " +colClue));
+        console.log(JSON.stringify("CantF " +PF));
+        console.log(JSON.stringify("CantC " +PC));
+      } else {
+        this.setState({
+          waiting: false
+        });
+      }
+    });
+
+  }
 
   handleClick(i, j) {
     // No action on click if we are waiting.
@@ -64,6 +95,17 @@ class Game extends React.Component {
     });
   }
 
+
+
+
+
+  mostrarSol(){
+    const G= this.state.gridSol;
+
+    for(let i=0;i<G.length;i++)
+      for(let j=0;j<G[0].length;j++)
+          console.log(JSON.stringify(G[i][j]));
+  }
   /**
    * Verifica si la columna con el indice index verifica la propiedad.
    * @param {*} index es el indice de la columna que deseamos verificar 

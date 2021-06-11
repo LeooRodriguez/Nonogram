@@ -1,6 +1,6 @@
 :- module(proylcc,
 	[  
-		put/8
+		put/8,resolverNonograma/5
 	]).
 
 :-use_module(library(lists)).
@@ -264,9 +264,9 @@ grillaEstadoAuxiliar([Y|Ys] , Indice , [X|Xs] , [Z|Zs]):-
 
 
 resolverNonogramaAux(Grilla, [CantF, CantC] , PistasF, PistasC, NuevaGrilla):-
-    grillaEstadoAuxiliar(Grilla, CantF, PistasF, Grilla1Pasada),
+    grillaEstadoAuxiliar(Grilla, CantC, PistasF, Grilla1Pasada),
     transpose(Grilla1Pasada,Grilla1PasadaT),
-    grillaEstadoAuxiliar(Grilla1PasadaT, CantC, PistasC, Grilla1PasadaOriginal),
+    grillaEstadoAuxiliar(Grilla1PasadaT, CantF, PistasC, Grilla1PasadaOriginal),
     transpose(Grilla1PasadaOriginal,NuevaGrilla).
 
 
