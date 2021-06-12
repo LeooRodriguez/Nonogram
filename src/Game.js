@@ -39,7 +39,7 @@ class Game extends React.Component {
     const rowClue = JSON.stringify(this.state.rowClues);
     const colClue = JSON.stringify(this.state.colClues);
     const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_");
-    const queryX = 'resolverNonograma("' + squaresS + '", [' + PF + ',' + PC + ']' + ', ' + rowClue + ', ' + colClue +', GrillaSo)';
+    const queryX = 'resolverNonograma('+ PF + ',' + PC + ', ' + rowClue + ', ' + colClue +', GrillaSo)';
     this.pengine.query(queryX, (success, response) => {
       if (success) {
         let GrillaSol = response['GrillaSo'];
