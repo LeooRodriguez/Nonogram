@@ -103,11 +103,11 @@ recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes
 % resolverNonograma(+PistasFilasTam,+PistasColTam,+PistasF,+PistasCol,-GrillaFinal).
 % Resuelve el nonograma en base a las Pistas de las Filas y las columnas.
 
-resolverNonograma(PistasFilasTam,PistasColTam,PistasF,PistasCol,GrillaFinal):-
-    lineaSol(PistasFilasTam,PistasF,FilaRes),
+resolverNonograma(_PistasFilasTam,PistasColTam,PistasF,PistasCol,GrillaFinal):-
+    lineaSol(PistasColTam,PistasF,FilaRes),!,
     pertenece(FilaRes,GrillaRes),
-    verificarCol(GrillaRes, PistasCol,0,PistasColTam),
-    llenarMatriz(GrillaRes,PistasFilasTam,GrillaFinal).
+    verificarCol(GrillaRes, PistasCol,0,PistasColTam),!,
+    llenarMatriz(GrillaRes,GrillaFinal).
 
 % posiblesSoluciones(+PistaF,+TamP,-PosiblesSol).
 % Genera todas las posibles listas solución en base a una pista y su tamaño.
@@ -141,16 +141,16 @@ verificarCol(_GrillaSol,_PistasC,Indice,ColTam):-
 verificarCol(GrillaSol,PistasC,Indice,ColTam):-
     transpose(GrillaSol, GrillaSolT), 
     recorrer(GrillaSolT, Indice, ColN),
-    transpose(GrillaSolT, GrillaSolNew), 
+    transpose(GrillaSolT, GrillaSolNew),
     nth0(Indice,PistasC,PistasCN),
-    cumpleProp(PistasCN,ColN,ColSat),
+    cumpleProp(PistasCN,ColN,ColSat),!,
     ColSat == 1,
     IndiceAux is Indice+1,
     verificarCol(GrillaSolNew,PistasC,IndiceAux,ColTam).
 
 
-cumpleProp(Pistas,ListaMovida,1):-cumple(ListaMovida, Pistas).
-cumpleProp(_Pistas,_ListaMovida,0).
+cumpleProp(Pistas,Lista,1):-cumple(Lista, Pistas).
+cumpleProp(_Pistas,_Lista,0).
 
 lineaSol(_Tam,[],[]).
 lineaSol(Tam,[X|Xs],Sol):-
