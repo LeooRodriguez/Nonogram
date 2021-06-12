@@ -100,17 +100,8 @@ cumplePista([X|Xs],N,Res):- X == "#", Z is N-1, cumplePista(Xs,Z,Res).
 recorrer([X|_Xs],0,X).
 recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes).
 
-
-
-
-
-
-
-
-
-
-
-
+% resolverNonograma(+PistasFilasTam,+PistasColTam,+PistasF,+PistasCol,-GrillaFinal).
+% Resuelve el nonograma en base a las Pistas de las Filas y las columnas.
 
 resolverNonograma(PistasFilasTam,PistasColTam,PistasF,PistasCol,GrillaFinal):-
     lineaSol(PistasFilasTam,PistasF,FilaRes),
@@ -118,21 +109,27 @@ resolverNonograma(PistasFilasTam,PistasColTam,PistasF,PistasCol,GrillaFinal):-
     verificarCol(GrillaRes, PistasCol,0,PistasColTam),
     llenarMatriz(GrillaRes,PistasFilasTam,GrillaFinal).
 
+% posiblesSoluciones(+PistaF,+TamP,-PosiblesSol).
+% Genera todas las posibles listas solución en base a una pista y su tamaño.
 
 posiblesSoluciones(PistaF,TamP,PosiblesSol):-
     findall(L,(length(L,TamP),posiblesCombinacionesL(PistaF,L)),PosiblesSol).
 
+% cumplePista2(+[X|Xs],+N,-Res).
+% Verifica en base a N si la pista tiene ese tamaño.
 
 cumplePista2([],0,[]).
 cumplePista2([X|Xs],0,Xs):- X == "X"; var(X).
 cumplePista2([X|Xs],N,Res):- X = "#", N>0, Z is N-1, cumplePista2(Xs,Z,Res).
 
-%generarListas(Pistas,ListaMovida).
-%Dada unas Pistas y un "L" genera las posibles combinaciones de L para las pistas.
+% posiblesCombinacionesL(+Pista,-Lista).
+% Dada unas Pistas y un "L" genera las posibles combinaciones de L para las pistas.
+
 posiblesCombinacionesL([],[]).
 posiblesCombinacionesL([],[Y|_Ys]):-Y\=="#".
 posiblesCombinacionesL([X|Xs],[Y|Ys]):- Y="#", (cumplePista2([Y|Ys],X,ListaResto),posiblesCombinacionesL(Xs,ListaResto)).
 posiblesCombinacionesL([X|Xs],[Y|Ys]):-Y\=="#", posiblesCombinacionesL([X|Xs],Ys).
+
 
 pertenece([],[]).
 pertenece([Y|Ys],[X|Xs]):-
