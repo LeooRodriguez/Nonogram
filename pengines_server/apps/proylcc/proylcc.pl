@@ -106,10 +106,17 @@ recorrer([_X|Xs],Index,ListaRes):- Index>0, I is Index-1, recorrer(Xs,I,ListaRes
 
 
 
-resolverNonograma(PistasFilasTam,PistasColTam,PistasF,PistasCol,GrillaRes):-
+
+
+
+
+
+
+resolverNonograma(PistasFilasTam,PistasColTam,PistasF,PistasCol,GrillaFinal):-
     lineaSol(PistasFilasTam,PistasF,FilaRes),
     pertenece(FilaRes,GrillaRes),
-    verificarCol(GrillaRes, PistasCol,0,PistasColTam).
+    verificarCol(GrillaRes, PistasCol,0,PistasColTam),
+    llenarMatriz(GrillaRes,PistasFilasTam,GrillaFinal).
 
 
 posiblesSoluciones(PistaF,TamP,PosiblesSol):-
@@ -144,7 +151,7 @@ verificarCol(GrillaSol,PistasC,Indice,ColTam):-
     IndiceAux is Indice+1,
     verificarCol(GrillaSolNew,PistasC,IndiceAux,ColTam).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 cumpleProp(Pistas,ListaMovida,1):-cumple(ListaMovida, Pistas).
 cumpleProp(_Pistas,_ListaMovida,0).
 
@@ -154,12 +161,14 @@ lineaSol(Tam,[X|Xs],Sol):-
 	append([Res],LineaSol,Sol),
 	lineaSol(Tam,Xs,LineaSol).
 
+llenarMatriz([],[]).
+llenarMatriz([X|Xs],[R|Rx]):-
+    llenarConXAux(X,R),
+    llenarMatriz(Xs,Rx).
 
-
-
-
-
-
+llenarConXAux([],[]).
+llenarConXAux(["X"|Xs],["X"|R]):-llenarConXAux(Xs,R).
+llenarConXAux([X|Xs],[X|R]):- X=="#", llenarConXAux(Xs,R).
 
 
 
