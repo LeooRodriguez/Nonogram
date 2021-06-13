@@ -45,6 +45,8 @@ class Game extends React.Component {
         this.setState({
           gridSol: GrillaSol
         });
+        console.log(JSON.stringify("GrillaComún: "+this.state.grid));
+        console.log(JSON.stringify("GrillaSolucion: "+this.state.gridSol));
       } else {
         this.setState({
           waiting: false
@@ -90,15 +92,6 @@ class Game extends React.Component {
 
 
 
-
-
-  mostrarSol(){
-    const G= this.state.gridSol;
-
-    for(let i=0;i<G.length;i++)
-      for(let j=0;j<G[0].length;j++)
-          console.log(JSON.stringify(G[i][j]));
-  }
   /**
    * Verifica si la columna con el indice index verifica la propiedad.
    * @param {*} index es el indice de la columna que deseamos verificar 
@@ -134,15 +127,13 @@ class Game extends React.Component {
 
   resolver(){
     if(this.state.modoResuelto==false)
-      this.setState.modoResuelto=true;
+    this.setState({ modoResuelto: true})
     else
-      this.setState.modoResuelto=false;
+    this.setState({ modoResuelto: false })
+
     const grilla= this.state.grid;
     console.log(JSON.stringify("Grilla: "+this.state.gridSol));
-    for(let i=0;i<grilla.length;i++)
-      for(let j=0;i<grilla[0].length;j++){
-      
-      }
+    console.log(JSON.stringify("EstadoResuelto: "+this.state.modoResuelto));
         
   }
   
@@ -243,7 +234,7 @@ class Game extends React.Component {
       satisfaccionFil: [],//Guarda verdaderos o falsos dependiendo si la filas cumple las propiedades del nonograma. 
       satisfaccionCol: [],//Guarda verdaderos o falsos dependiendo si la columnas cumple las propiedades del nonograma.
       modoBoton: "#",//Verifica en que estado esta el botón ( # ó X).
-      modoResuelto: false,
+      modoResuelto: true,
       modoAyudita: false,
     };
     this.handleClick = this.handleClick.bind(this);
