@@ -38,20 +38,13 @@ class Game extends React.Component {
     const PC= this.state.colClues.length;
     const rowClue = JSON.stringify(this.state.rowClues);
     const colClue = JSON.stringify(this.state.colClues);
-    const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_");
     const queryX = 'resolverNonograma('+ PF + ',' + PC + ', ' + rowClue + ', ' + colClue +', GrillaSo)';
     this.pengine.query(queryX, (success, response) => {
       if (success) {
         let GrillaSol = response['GrillaSo'];
-        console.log(JSON.stringify(response['GrillaSo']));
         this.setState({
           gridSol: GrillaSol
         });
-        console.log(JSON.stringify("GrillaComun: " +squaresS));
-        console.log(JSON.stringify("PistasF " +rowClue));
-        console.log(JSON.stringify("PistasC " +colClue));
-        console.log(JSON.stringify("CantF " +PF));
-        console.log(JSON.stringify("CantC " +PC));
       } else {
         this.setState({
           waiting: false
@@ -140,8 +133,19 @@ class Game extends React.Component {
   }
 
   resolver(){
-
+    if(this.state.modoResuelto==false)
+      this.setState.modoResuelto=true;
+    else
+      this.setState.modoResuelto=false;
+    const grilla= this.state.grid;
+    console.log(JSON.stringify("Grilla: "+this.state.gridSol));
+    for(let i=0;i<grilla.length;i++)
+      for(let j=0;i<grilla[0].length;j++){
+      
+      }
+        
   }
+  
 
   ayuda(){
     
@@ -207,16 +211,29 @@ class Game extends React.Component {
           Resolver
         </botonesGenerales>
         
+        <div class = "ayuda" >
+          <input type = "checkbox" name="boton" value ={this.state.modoAyudita} onClick={()=>this.ayuda()}/>
+          <label for = "boton"></label>
+        </div>
+
+        <div class = "solucion" >
+          <input type = "checkbox" name="boton" value ={this.state.modoResuelto} onClick={()=>this.resolver()}/>
+          <label for = "boton"></label>
+        </div>
+        
       </div>
       <div>
       <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
           Ayudita 
         </botonesGenerales>
+        
         </div>
       </div>
 
     );
   }
+
+  
   restart(isFirstTime = false) {
     this.state = {
       grid: null,
@@ -226,6 +243,8 @@ class Game extends React.Component {
       satisfaccionFil: [],//Guarda verdaderos o falsos dependiendo si la filas cumple las propiedades del nonograma. 
       satisfaccionCol: [],//Guarda verdaderos o falsos dependiendo si la columnas cumple las propiedades del nonograma.
       modoBoton: "#",//Verifica en que estado esta el botón ( # ó X).
+      modoResuelto: false,
+      modoAyudita: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlePengineCreate = this.handlePengineCreate.bind(this);
