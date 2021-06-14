@@ -26,27 +26,24 @@ class Game extends React.Component {
         });
         this.cargarGrillaRes();
       }
-      
-      //this.mostrarSol();
+
     });
-    
+
   }
 
-  cargarGrillaRes(){
-    
-    const PF= this.state.rowClues.length;
-    const PC= this.state.colClues.length;
+  cargarGrillaRes() {
+
+    const PF = this.state.rowClues.length;
+    const PC = this.state.colClues.length;
     const rowClue = JSON.stringify(this.state.rowClues);
     const colClue = JSON.stringify(this.state.colClues);
-    const queryX = 'resolverNonograma('+ PF + ',' + PC + ', ' + rowClue + ', ' + colClue +', GrillaSo)';
+    const queryX = 'resolverNonograma(' + PF + ',' + PC + ', ' + rowClue + ', ' + colClue + ', GrillaSo)';
     this.pengine.query(queryX, (success, response) => {
       if (success) {
         let GrillaSol = response['GrillaSo'];
         this.setState({
           gridSol: GrillaSol
         });
-        console.log(JSON.stringify(this.state.grid));
-        console.log(JSON.stringify(this.state.gridSol));
       } else {
         this.setState({
           waiting: false
@@ -61,12 +58,16 @@ class Game extends React.Component {
     if (this.state.waiting || this.state.modoResuelto) {
       return;
     }
+
+
+
     // Build Prolog query to make the move, which will look as follows:
     // put("#",[0,1],[], [],[["X",_,_,_,_],["X",_,"X",_,_],["X",_,_,_,_],["#","#","#",_,_],[_,_,"#","#","#"]], GrillaRes, FilaSat, ColSat)
     const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_"); // Remove quotes for variables.
-    const modo = this.state.modoBoton;
+    const elem = this.state.gridSol[i][j];
     const rowClue = JSON.stringify(this.state.rowClues);
     const colClue = JSON.stringify(this.state.colClues);
+    const modo = this.state.modoAyudita ? elem : this.state.modoBoton;
     const queryS = 'put("' + modo + '", [' + i + ',' + j + ']' + ', ' + rowClue + ', ' + colClue + ',' + squaresS + ', GrillaRes, FilaSat, ColSat)';
     this.setState({
       waiting: true
@@ -82,6 +83,7 @@ class Game extends React.Component {
         });
         this.confirmarFilaSatisfecha(i, satisfaceFil === 1);
         this.confirmarColSatisfecha(j, satisfaceCol === 1);
+
       } else {
         this.setState({
           waiting: false
@@ -125,21 +127,19 @@ class Game extends React.Component {
       this.setState({ modoBoton: "#" })
   }
 
-  resolver(){
-    if(this.state.modoResuelto==false)
-    this.setState({ modoResuelto: true})
+  resolver() {
+    if (this.state.modoResuelto == false)
+      this.setState({ modoResuelto: true })
     else
-    this.setState({ modoResuelto: false })
-
-    const grilla= this.state.grid;
-    console.log(JSON.stringify(this.state.gridSol));
-    console.log(JSON.stringify(this.state.modoResuelto));
-        
+      this.setState({ modoResuelto: false })
   }
-  
 
-  ayuda(){
-    
+
+  ayuda() {
+    if (this.state.modoAyudita == false)
+      this.setState({ modoAyudita: true })
+    else
+      this.setState({ modoAyudita: false })
   }
 
   abrirManual() {
@@ -173,8 +173,8 @@ class Game extends React.Component {
       </div>
     }
 
-
     return (
+
       <div className="game">
         <Board
           grid={this.state.modoResuelto ? this.state.gridSol : this.state.grid}
@@ -185,46 +185,48 @@ class Game extends React.Component {
           satisfaccionCol={this.state.satisfaccionCol}
         />
         <div>
-        <button className="box clue nsat" onClick={() => this.cambiar()} >
-          {this.state.modoBoton}
-        </button>
+          <button className="box clue nsat" onClick={() => this.cambiar()} >
+            {this.state.modoBoton}
+          </button>
           <div className={"cartelNombre"}>Nonograma
-        </div>
-            <div className={"Estado"}>
-        </div>
-        <botonesGenerales className={"botonReglas"} onClick={() => this.abrirManual()}>
-          Reglas
-        </botonesGenerales>
-        <botonesGenerales className={"botonDeReinicio"} onClick={() => this.restart()}>
-          Reiniciar
-        </botonesGenerales>
-        <botonesGenerales className={"botonDeResolver"} onClick={() => this.resolver()}>
-          Resolver
-        </botonesGenerales>
-        
-        <div class = "ayuda" >
-          <input type = "checkbox" name="boton" value ={this.state.modoAyudita} onClick={()=>this.ayuda()}/>
-          <label for = "boton"></label>
-        </div>
+          </div>
+          <div className={"Estado"}>
+          </div>
+          <botonesGenerales className={"botonReglas"} onClick={() => this.abrirManual()}>
+            Reglas
+          </botonesGenerales>
+          <botonesGenerales className={"botonDeReinicio"} onClick={() => this.restart()}>
+            Reiniciar
+          </botonesGenerales>
+          <botonesGenerales className={"botonDeResolver"} onClick={() => this.resolver()}>
+            Resolver
+          </botonesGenerales>
 
-        <div class = "solucion" >
-          <input type = "checkbox" name="boton" value ={this.state.modoResuelto} onClick={()=>this.resolver()}/>
-          <label for = "boton"></label>
+
+
+          <div class="ayuda" >
+            <input type="checkbox" name="boton" value={this.state.modoAyudita} onClick={() => this.ayuda()} />
+            <label for="boton"></label>
+          </div>
+
+          <div class="solucion" >
+            <input type="checkbox" name="boton" value={this.state.modoResuelto} onClick={() => this.resolver()} />
+            <label for="boton"></label>
+          </div>
+
         </div>
-        
-      </div>
-      <div>
-      <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
-          Ayudita 
-        </botonesGenerales>
-        
+        <div>
+          <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
+            Ayudita
+          </botonesGenerales>
+
         </div>
       </div>
 
     );
   }
 
-  
+
   restart(isFirstTime = false) {
     this.state = {
       grid: null,
@@ -236,7 +238,7 @@ class Game extends React.Component {
       satisfaccionCol: [],//Guarda verdaderos o falsos dependiendo si la columnas cumple las propiedades del nonograma.
       modoBoton: "#",//Verifica en que estado esta el botón ( # ó X).
       modoResuelto: false,
-      modoAyudita: true,
+      modoAyudita: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlePengineCreate = this.handlePengineCreate.bind(this);
