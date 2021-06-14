@@ -59,20 +59,26 @@ class Game extends React.Component {
       return;
     }
 
-
-
-    // Build Prolog query to make the move, which will look as follows:
-    // put("#",[0,1],[], [],[["X",_,_,_,_],["X",_,"X",_,_],["X",_,_,_,_],["#","#","#",_,_],[_,_,"#","#","#"]], GrillaRes, FilaSat, ColSat)
-    const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_"); // Remove quotes for variables.
     const elem = this.state.gridSol[i][j];
+    let modo;
+    if(this.state.modoAyudita){
+      if(this.state.grid[i][j]==="_"){
+          modo= elem;
+          this.llamarAPut(i,j,elem);
+      }
+    }
+    else
+      this.llamarAPut(i,j,this.state.modoBoton);
+  }
+
+  llamarAPut(i,j,elem){
+    const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_"); // Remove quotes for variables.
     const rowClue = JSON.stringify(this.state.rowClues);
     const colClue = JSON.stringify(this.state.colClues);
-    const modo = this.state.modoAyudita ? elem : this.state.modoBoton;
-    const queryS = 'put("' + modo + '", [' + i + ',' + j + ']' + ', ' + rowClue + ', ' + colClue + ',' + squaresS + ', GrillaRes, FilaSat, ColSat)';
+    const queryS = 'put("' + elem + '", [' + i + ',' + j + ']' + ', ' + rowClue + ', ' + colClue + ',' + squaresS + ', GrillaRes, FilaSat, ColSat)';
     this.setState({
       waiting: true
     });
-
     this.pengine.query(queryS, (success, response) => {
       if (success) {
         let newGrid = response['GrillaRes'];
@@ -91,8 +97,6 @@ class Game extends React.Component {
       }
     });
   }
-
-
 
   /**
    * Verifica si la columna con el indice index verifica la propiedad.
@@ -175,6 +179,7 @@ class Game extends React.Component {
 
     return (
 
+      
       <div className="game">
         <Board
           grid={this.state.modoResuelto ? this.state.gridSol : this.state.grid}
@@ -198,27 +203,28 @@ class Game extends React.Component {
           <botonesGenerales className={"botonDeReinicio"} onClick={() => this.restart()}>
             Reiniciar
           </botonesGenerales>
-          <botonesGenerales className={"botonDeResolver"} onClick={() => this.resolver()}>
-            Resolver
-          </botonesGenerales>
 
+          <div>
+        <input type = "checkbox" className = "checkboxResolverNonograma" id = "checkboxResolverNonograma" onChange = {() => this.resolver()} value = {this.state.modoResuelto} ></input>
+           <label htmlFor = "checkboxResolverNonograma" className = "labelResolverNonograma">
+           <i className ="fa fa-question" aria-hidden="true"></i>
+           <div className = "ballResolverNonograma"></div>
+           </label>
+       </div>
 
-
-          <div class="ayuda" >
-            <input type="checkbox" name="boton" value={this.state.modoAyudita} onClick={() => this.ayuda()} />
-            <label for="boton"></label>
+       <div>
+        <input type = "checkbox" className = "checkboxAyudita" id = "checkboxAyudita" onChange = {() => this.ayuda()} value = {this.state.modoAyudita} ></input>
+           <label htmlFor = "checkboxAyudita" className = "labelAyudita">
+           <i className ="fa fa-question" aria-hidden="true"></i>
+           <div className = "ballAyudita"></div>
+           </label>
+       </div>
+       
+       <div className={"cartelAyuda"}>Ayuda
           </div>
 
-          <div class="solucion" >
-            <input type="checkbox" name="boton" value={this.state.modoResuelto} onClick={() => this.resolver()} />
-            <label for="boton"></label>
+          <div className={"cartelResolver"}>Resolver
           </div>
-
-        </div>
-        <div>
-          <botonesGenerales className={"botonAyudita"} onClick={() => this.ayuda()}>
-            Ayudita
-          </botonesGenerales>
 
         </div>
       </div>

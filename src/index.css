@@ -149,7 +149,7 @@ body {
 .cartelNombre{
   position: relative;
   height: 50px;
-  width: 500px;
+  width: 250px;
   right:500px;
   bottom: 20%;
   color : rgb(7, 209, 255);
@@ -216,32 +216,128 @@ body {
   border-radius: 8px;
 }
 
-.botonDeResolver{
+
+/* Boton Resolver Nonograma */
+.checkboxResolverNonograma{
+  display:none;
+}
+
+.checkboxResolverNonograma:checked + .labelResolverNonograma .ballResolverNonograma {
+  transform: translateX(24px);
+}
+
+.checkboxResolverNonograma:checked + .labelResolverNonograma{
+  background-color: #ff6cce;
+}
+
+.labelResolverNonograma { 
+  background-color: #a681aa;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  margin: 320px 22px 150px;
+  height: 26px;
+  width: 50px;
+  transform: scale(1.2);
+  bottom: 280px;
+  left: 450px;
+}
+
+.ballResolverNonograma {
+  background-color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  position: absolute;
+  display: flex;
+  transition: transform 0.4s linear;
+}
+
+/* Movimiento label de Resolver Nonograma*/
+.checkboxResolverNonograma:checked + .labelResolverNonograma .ballResolverNonograma {
+  transform: translateX(24px);
+}
+
+/* Boton de Ayuda */
+.checkboxAyudita{
+  display:none;
+}
+
+.checkboxAyudita:checked + .labelAyudita .ballAyudita {
+  transform: translateX(24px);
+}
+
+.checkboxAyudita:checked + .labelAyudita{
+  background-color: #ff6cce;
+}
+
+.labelAyudita { 
+  background-color: #a681aa;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  margin: 320px 22px 150px;
+  height: 26px;
+  width: 50px;
+  transform: scale(1.2);
+  bottom: 690px;
+  left: 450px;
+}
+
+.ballAyudita {
+  background-color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  position: absolute;
+  display: flex;
+  transition: transform 0.4s linear;
+}
+
+/* Movimiento label de Resolver Nonograma*/
+.checkboxAyudita:checked + .labelAyudita .ballAyudita {
+  transform: translateX(24px);
+}
+
+.cartelResolver{
   border: solid rgb(8, 222, 250) 1px;
   background: linear-gradient(45deg, #5f49bf 30%, #063ffa 90%);
   color: rgb(255, 255, 255);
-  position:relative;
+  position: relative;
   height: 50px;
-  width: 157px;
-  right: 10px;
-  top: 30px;
+  width: 150px;
+  left: 385px;
+  bottom: 850px;
+  transform: translate(-50%,-50%);
   font-weight: 1000;
-  font-size: 25px;
-  border-radius: 8px;
-}
-.botonAyudita{
-  border: solid rgb(8, 222, 250) 1px;
-  background: linear-gradient(45deg, #5f49bf 30%, #063ffa 90%);
-  color: rgb(255, 255, 255);
-  position:relative;
-  height: 50px;
-  width: 157px;
-  right: 190px;
-  top: 248px;
-  font-weight: 1000;
-  font-size: 25px;
+  font-size: 30px;
   border-radius: 8px;
 }
 
-
-
+.cartelAyuda{
+    border: solid rgb(8, 222, 250) 1px;
+    background: linear-gradient(45deg, #5f49bf 30%, #063ffa 90%);
+    color: rgb(255, 255, 255);
+    position: relative;
+    height: 50px;
+    width: 150px;
+    left: 385px;
+    bottom: 857px;
+    transform: translate(-50%,-50%);
+    font-weight: 1000;
+    font-size: 30px;
+    border-radius: 8px;
+  
+}
