@@ -45,8 +45,8 @@ class Game extends React.Component {
         this.setState({
           gridSol: GrillaSol
         });
-        console.log(JSON.stringify("GrillaComún: "+this.state.grid));
-        console.log(JSON.stringify("GrillaSolucion: "+this.state.gridSol));
+        console.log(JSON.stringify(this.state.grid));
+        console.log(JSON.stringify(this.state.gridSol));
       } else {
         this.setState({
           waiting: false
@@ -58,7 +58,7 @@ class Game extends React.Component {
 
   handleClick(i, j) {
     // No action on click if we are waiting.
-    if (this.state.waiting) {
+    if (this.state.waiting || this.state.modoResuelto) {
       return;
     }
     // Build Prolog query to make the move, which will look as follows:
@@ -132,8 +132,8 @@ class Game extends React.Component {
     this.setState({ modoResuelto: false })
 
     const grilla= this.state.grid;
-    console.log(JSON.stringify("Grilla: "+this.state.gridSol));
-    console.log(JSON.stringify("EstadoResuelto: "+this.state.modoResuelto));
+    console.log(JSON.stringify(this.state.gridSol));
+    console.log(JSON.stringify(this.state.modoResuelto));
         
   }
   
@@ -177,7 +177,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <Board
-          grid={this.state.grid}
+          grid={this.state.modoResuelto ? this.state.gridSol : this.state.grid}
           rowClues={this.state.rowClues}
           colClues={this.state.colClues}
           onClick={(i, j) => this.handleClick(i, j)}
@@ -228,14 +228,15 @@ class Game extends React.Component {
   restart(isFirstTime = false) {
     this.state = {
       grid: null,
+      gridSol: null,
       rowClues: null,
       colClues: null,
       waiting: false,
       satisfaccionFil: [],//Guarda verdaderos o falsos dependiendo si la filas cumple las propiedades del nonograma. 
       satisfaccionCol: [],//Guarda verdaderos o falsos dependiendo si la columnas cumple las propiedades del nonograma.
       modoBoton: "#",//Verifica en que estado esta el botón ( # ó X).
-      modoResuelto: true,
-      modoAyudita: false,
+      modoResuelto: false,
+      modoAyudita: true,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlePengineCreate = this.handlePengineCreate.bind(this);
