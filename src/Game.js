@@ -55,7 +55,7 @@ class Game extends React.Component {
 
   handleClick(i, j) {
     // No action on click if we are waiting.
-    if (this.state.waiting || this.state.modoResuelto) {
+    if (this.state.waiting || this.state.modoResuelto || this.state.gridSol===null) {
       return;
     }
 
@@ -182,7 +182,7 @@ class Game extends React.Component {
       
       <div className="game">
         <Board
-          grid={this.state.modoResuelto ? this.state.gridSol : this.state.grid}
+          grid={this.state.modoResuelto ? this.state.gridSol : this.state.grid}//PREGUNTAR PROBLEMA DE SETEAR GRILLA NULA YA QUE NO PUEDE RESOLVER UN NONOGRAM
           rowClues={this.state.rowClues}
           colClues={this.state.colClues}
           onClick={(i, j) => this.handleClick(i, j)}

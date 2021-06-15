@@ -227,11 +227,11 @@ body {
 }
 
 .checkboxResolverNonograma:checked + .labelResolverNonograma{
-  background-color: #ff6cce;
+  background-color: #063ffa;
 }
 
 .labelResolverNonograma { 
-  background-color: #a681aa;
+  background-color: #5f49bf;
   border-radius: 50px;
   cursor: pointer;
   display: flex;
@@ -274,11 +274,11 @@ body {
 }
 
 .checkboxAyudita:checked + .labelAyudita{
-  background-color: #ff6cce;
+  background-color: #063ffa;
 }
 
 .labelAyudita { 
-  background-color: #a681aa;
+  background-color: #5f49bf;
   border-radius: 50px;
   cursor: pointer;
   display: flex;
