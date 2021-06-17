@@ -182,7 +182,7 @@ class Game extends React.Component {
       
       <div className="game">
         <Board
-          grid={this.state.modoResuelto ? this.state.gridSol : this.state.grid}//PREGUNTAR PROBLEMA DE SETEAR GRILLA NULA YA QUE NO PUEDE RESOLVER UN NONOGRAM
+          grid={this.state.modoResuelto&&this.state.gridSol!=null ? this.state.gridSol : this.state.grid}
           rowClues={this.state.rowClues}
           colClues={this.state.colClues}
           onClick={(i, j) => this.handleClick(i, j)}
