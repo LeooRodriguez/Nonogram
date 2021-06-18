@@ -25,7 +25,6 @@ class Game extends React.Component {
           satisfaccionCol: Array(response['PistasColumns'].length).fill(false) //inicializamos la columna para verificar en falso
         }, ()=>this.cargarGrillaRes());
       }
-
     });
 
   }
