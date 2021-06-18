@@ -30,14 +30,16 @@ class Game extends React.Component {
     });
 
   }
-
+/**
+ * Carga la grilla resuelta del nonograma en el estado gridSol.
+ */
   cargarGrillaRes() {
 
     const PF = this.state.rowClues.length;
     const PC = this.state.colClues.length;
     const rowClue = JSON.stringify(this.state.rowClues);
     const colClue = JSON.stringify(this.state.colClues);
-    const queryX = 'resolverNonograma(' + PF + ',' + PC + ', ' + rowClue + ', ' + colClue + ', GrillaSo)';
+    const queryX = 'resolverNonograma(' + PF + ',' + PC + ', ' + rowClue + ', ' + colClue + ', GrillaSo)';//Le pedimos a Prolog la grilla resuelta.
     this.pengine.query(queryX, (success, response) => {
       if (success) {
         let GrillaSol = response['GrillaSo'];
@@ -62,7 +64,7 @@ class Game extends React.Component {
     const elem = this.state.gridSol[i][j];
     let modo;
     if(this.state.modoAyudita){
-      if(this.state.grid[i][j]==="_"){
+      if(this.state.grid[i][j]==="_"){//Según los requerimientos solo se debe poner ayudas en lugares vacios.
           modo= elem;
           this.llamarAPut(i,j,elem);
       }
@@ -70,7 +72,12 @@ class Game extends React.Component {
     else
       this.llamarAPut(i,j,this.state.modoBoton);
   }
-
+/**
+ * Consulta a Prolog para insertar un elemento en la grilla
+ * @param {*} i Posición de la fila en la grilla
+ * @param {*} j Posición de la columna en la grilla
+ * @param {*} elem Elemento a insertar en la grilla (# ó X)
+ */
   llamarAPut(i,j,elem){
     const squaresS = JSON.stringify(this.state.grid).replaceAll('"_"', "_"); // Remove quotes for variables.
     const rowClue = JSON.stringify(this.state.rowClues);
@@ -130,7 +137,9 @@ class Game extends React.Component {
     else
       this.setState({ modoBoton: "#" })
   }
-
+/**
+   * Cambia el estado del boton, alternando entre el True y el False según cual sea su estado actual.
+   */
   resolver() {
     if (this.state.modoResuelto == false)
       this.setState({ modoResuelto: true })
@@ -138,7 +147,9 @@ class Game extends React.Component {
       this.setState({ modoResuelto: false })
   }
 
-
+/**
+   * Cambia el estado del boton, alternando entre el True y el False según cual sea su estado actual.
+   */
   ayuda() {
     if (this.state.modoAyudita == false)
       this.setState({ modoAyudita: true })
@@ -243,8 +254,8 @@ class Game extends React.Component {
       satisfaccionFil: [],//Guarda verdaderos o falsos dependiendo si la filas cumple las propiedades del nonograma. 
       satisfaccionCol: [],//Guarda verdaderos o falsos dependiendo si la columnas cumple las propiedades del nonograma.
       modoBoton: "#",//Verifica en que estado esta el botón ( # ó X).
-      modoResuelto: false,
-      modoAyudita: false,
+      modoResuelto: false,//Modo para alternar la grilla resuelta.
+      modoAyudita: false,//Modo para ayudar al usuario.
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlePengineCreate = this.handlePengineCreate.bind(this);
