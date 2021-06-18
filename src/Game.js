@@ -23,8 +23,7 @@ class Game extends React.Component {
           colClues: response['PistasColumns'],
           satisfaccionFil: Array(response['PistasFilas'].length).fill(false), //inicializamos la fila para verificar en falso
           satisfaccionCol: Array(response['PistasColumns'].length).fill(false) //inicializamos la columna para verificar en falso
-        });
-        this.cargarGrillaRes();
+        }, ()=>this.cargarGrillaRes());
       }
 
     });
